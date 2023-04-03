@@ -16,7 +16,6 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID")
@@ -32,7 +31,7 @@ public class User {
     private String city;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_friendList",
+    @JoinTable(name = "user_friend_list",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<User> friendList = new HashSet<>();
