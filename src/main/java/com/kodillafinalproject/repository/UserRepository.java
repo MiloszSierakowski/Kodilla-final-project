@@ -10,9 +10,10 @@ import java.util.List;
 @Repository
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> findByFirstnameLike(String firstname);
 
-    List<User> findByFirstnameLikeAndLastnameLike(String firstname, String lastname);
+    List<User> findByFirstNameLikeAndLastNameLike(String firstname, String lastname);
 
-    List<User> findByLastnameLike(String lastname);
+    List<User> findByFirstNameLike(String firstName);
+
+    List<User> findByLastNameLike(String lastName);
 }

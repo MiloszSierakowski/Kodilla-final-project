@@ -12,8 +12,8 @@ import java.util.List;
 public interface UserMapper {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "firstname", target = "firstname")
-    @Mapping(source = "lastname", target = "lastname")
+    @Mapping(source = "firstName", target = "firstName")
+    @Mapping(source = "lastName", target = "lastName")
     @Mapping(source = "city", target = "city")
     @Mapping(ignore = true, target = "friendList")
     @Mapping(ignore = true, target = "noteList")

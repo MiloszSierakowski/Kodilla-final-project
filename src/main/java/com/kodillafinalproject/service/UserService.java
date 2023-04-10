@@ -1,5 +1,7 @@
 package com.kodillafinalproject.service;
 
+import com.kodillafinalproject.controller.NoRequiredPersonDataException;
+import com.kodillafinalproject.controller.UserNotFoundException;
 import com.kodillafinalproject.domain.User;
 import com.kodillafinalproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,25 +15,63 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<User> findByName(User user) throws Exception {
+    public List<User> findByName(User user) throws NoRequiredPersonDataException, UserNotFoundException {
         //todo optymalizacja zobaczyć czy da się to lepiej zrobić
-        if (user.getFirstname() != null || user.getLastname() != null) {
-            if (user.getFirstname() != null && !user.getFirstname().isEmpty() && user.getLastname() != null && !user.getLastname().isEmpty()) {
-                return userRepository.findByFirstnameLikeAndLastnameLike(user.getFirstname(), user.getLastname());
-            } else if (user.getFirstname() != null && !user.getFirstname().isEmpty()) {
-                return userRepository.findByFirstnameLike(user.getFirstname()); // todo dodać gdy lista jest pusta ? i albo lista albo throw exeption userNotFound
-            } else if (user.getLastname() != null && !user.getLastname().isEmpty()) {
-                return userRepository.findByLastnameLike(user.getLastname());
+        if (user.getFirstName() != null || user.getLastName() != null) {
+
+            if (user.getFirstName() != null && !user.getFirstName().isEmpty() && user.getLastName() != null && !user.getLastName().isEmpty()) {
+                return findByFirstNameLikeAndLastNameLike(user);
+
+            } else if (user.getFirstName() != null && !user.getFirstName().isEmpty()) {
+                return findByFirstNameLike(user);
+
+            } else if (user.getLastName() != null && !user.getLastName().isEmpty()) {
+                return findByLastNameLike(user);
+
             } else {
-                System.out.println(user.getLastname());
-                throw new Exception("wpisano puste znaki przy szukaniu urzytkownika");
-                //todo tutaj ma rzucic wyjatkiem ze urzytkownik chce szukac ale nie podał imienia i nazwiska
+                throw new NoRequiredPersonDataException();
             }
         } else {
-            throw new Exception("Mamy dwa nulle przy szukaniu urzytkownika");
-            //todo dorobić wyjątek że nie został podany ani firstname ani lastname
+            throw new NoRequiredPersonDataException();
         }
-
     }
 
+    private List<User> findByFirstNameLikeAndLastNameLike(User user) throws UserNotFoundException {
+        List<User> userList = userRepository.findByFirstNameLikeAndLastNameLike(user.getFirstName(), user.getLastName());
+        if (userList.size() > 0) {
+            return userList;
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    private List<User> findByFirstNameLike(User user) throws UserNotFoundException {
+        List<User> userList = userRepository.findByFirstNameLike(user.getFirstName());
+        if (userList.size() > 0) {
+            return userList;
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    private List<User> findByLastNameLike(User user) throws UserNotFoundException {
+        List<User> userList = userRepository.findByLastNameLike(user.getLastName());
+        if (userList.size() > 0) {
+            return userList;
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    public User findById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
 }

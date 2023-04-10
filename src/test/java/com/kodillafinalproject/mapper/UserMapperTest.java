@@ -34,8 +34,8 @@ class UserMapperTest {
 
         assertAll(
                 () -> assertEquals(userDto.getId(), mappedUser.getId()),
-                () -> assertEquals(userDto.getFirstname(), mappedUser.getFirstname()),
-                () -> assertEquals(userDto.getLastname(), mappedUser.getLastname()),
+                () -> assertEquals(userDto.getFirstName(), mappedUser.getFirstName()),
+                () -> assertEquals(userDto.getLastName(), mappedUser.getLastName()),
                 () -> assertEquals(userDto.getCity(), mappedUser.getCity())
         );
     }
@@ -47,8 +47,8 @@ class UserMapperTest {
 
         assertAll(
                 () -> assertEquals(userDto1.getId(), mappedUser.getId()),
-                () -> assertEquals(userDto1.getFirstname(), mappedUser.getFirstname()),
-                () -> assertEquals(userDto1.getLastname(), mappedUser.getLastname()),
+                () -> assertEquals(userDto1.getFirstName(), mappedUser.getFirstName()),
+                () -> assertEquals(userDto1.getLastName(), mappedUser.getLastName()),
                 () -> assertEquals(userDto1.getCity(), mappedUser.getCity())
         );
     }
@@ -59,8 +59,8 @@ class UserMapperTest {
 
         assertAll(
                 () -> assertEquals(user.getId(), mappedUserDto.getId()),
-                () -> assertEquals(user.getFirstname(), mappedUserDto.getFirstname()),
-                () -> assertEquals(user.getLastname(), mappedUserDto.getLastname()),
+                () -> assertEquals(user.getFirstName(), mappedUserDto.getFirstName()),
+                () -> assertEquals(user.getLastName(), mappedUserDto.getLastName()),
                 () -> assertEquals(user.getCity(), mappedUserDto.getCity())
         );
     }
@@ -78,8 +78,8 @@ class UserMapperTest {
 
         assertAll(
                 () -> assertEquals(userList.size(), mappedUserDtoList.size()),
-                () -> assertEquals(userList.get(1).getFirstname(), mappedUserDtoList.get(1).getFirstname()),
-                () -> assertEquals(userList.get(2).getLastname(), mappedUserDtoList.get(2).getLastname())
+                () -> assertEquals(userList.get(1).getFirstName(), mappedUserDtoList.get(1).getFirstName()),
+                () -> assertEquals(userList.get(2).getLastName(), mappedUserDtoList.get(2).getLastName())
         );
     }
 
@@ -94,8 +94,8 @@ class UserMapperTest {
 
         assertAll(
                 () -> assertEquals(userDtoList.size(),                  mappedUserList.size()),
-                () -> assertEquals(userDtoList.get(1).getFirstname(),   mappedUserList.get(1).getFirstname()),
-                () -> assertEquals(userDtoList.get(2).getLastname(),    mappedUserList.get(2).getLastname())
+                () -> assertEquals(userDtoList.get(1).getFirstName(),   mappedUserList.get(1).getFirstName()),
+                () -> assertEquals(userDtoList.get(2).getLastName(),    mappedUserList.get(2).getLastName())
         );
     }
 }
