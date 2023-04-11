@@ -25,4 +25,14 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNoteNotFoundException(NoteNotFoundException exception) {
         return new ResponseEntity<>("Note doesn't exists", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(EventGroupNotFoundException.class)
+    public ResponseEntity<Object> handleEventGroupNotFoundException(EventGroupNotFoundException exception) {
+        return new ResponseEntity<>("EventGroup doesn't exists", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotEmptyEventGroupDeletionException.class)
+    public ResponseEntity<Object> handleEventGroupNotFoundException(NotEmptyEventGroupDeletionException exception) {
+        return new ResponseEntity<>("EventGroup is not empty, you cannot delete it.", HttpStatus.CONFLICT);
+    }
 }

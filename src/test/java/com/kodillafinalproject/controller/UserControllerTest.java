@@ -56,7 +56,6 @@ class UserControllerTest {
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
                 .andExpect(MockMvcResultMatchers.status().is(200));
-
     }
 
     @Test
@@ -111,8 +110,8 @@ class UserControllerTest {
                         .content(jsonContent))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname", Matchers.is("Test")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.is("tests")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName", Matchers.is("Test")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", Matchers.is("tests")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.city", Matchers.is("In Poland city")));
     }
 
@@ -149,10 +148,10 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Matchers.is(2)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstname", Matchers.is("Alicja")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].firstname", Matchers.is("Milosz")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastname", Matchers.is("NVIDIA")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].lastname", Matchers.is("NVIDIA")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName", Matchers.is("Alicja")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].firstName", Matchers.is("Milosz")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName", Matchers.is("NVIDIA")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].lastName", Matchers.is("NVIDIA")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].city", Matchers.is("Olsztyn")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].city", Matchers.is("Olsztyn")));
     }
