@@ -11,14 +11,18 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> handleBookNotFoundException(UserNotFoundException exception) {
-        return new ResponseEntity<>("User with given id doesn't exists", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException exception) {
+        return new ResponseEntity<>("User doesn't exists", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NoRequiredPersonDataException.class)
-    public ResponseEntity<Object> handleBookNotFoundException(NoRequiredPersonDataException exception) {
+    public ResponseEntity<Object> handleNoRequiredPersonDataException(NoRequiredPersonDataException exception) {
         return new ResponseEntity<>("You have not provided the first or last " +
                 "name of the person you want to find. Please enter a username.", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NoteNotFoundException.class)
+    public ResponseEntity<Object> handleNoteNotFoundException(NoteNotFoundException exception) {
+        return new ResponseEntity<>("Note doesn't exists", HttpStatus.NOT_FOUND);
+    }
 }

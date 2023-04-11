@@ -30,7 +30,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws UserNotFoundException {
-        User user = userService.findById(id);
+        User user = userService.findById(id); //todo zmienić na egxist
         userService.deleteUserById(user.getId());
         return ResponseEntity.ok().build();
     }

@@ -6,6 +6,8 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface NoteMapper {
     @Mapping(source = "id", target = "id")
@@ -16,4 +18,7 @@ public interface NoteMapper {
 
     @InheritInverseConfiguration(name = "mapToNote")
     NoteDto mapToNoteDto(Note note);
+
+    List<Note> mapToNoteList(List<NoteDto> noteDtos);
+    List<NoteDto> mapToNoteDtoList(List<Note> noteDtos);
 }
