@@ -27,7 +27,7 @@ public class EventGroupController {
     }
 
     @GetMapping(value = "/{eventGroupId}")
-    public ResponseEntity<EventGroupDto> getEventGroupEvent(@PathVariable Long eventGroupId) throws EventGroupNotFoundException {
+    public ResponseEntity<EventGroupDto> getEventGroup(@PathVariable Long eventGroupId) throws EventGroupNotFoundException {
         EventGroup eventGroup = eventGroupService.findById(eventGroupId);
         return ResponseEntity.ok(groupMapper.mapToEventGroupDto(eventGroup));
     }

@@ -4,6 +4,7 @@ import com.kodillafinalproject.controller.NoteNotFoundException;
 import com.kodillafinalproject.domain.Note;
 import com.kodillafinalproject.domain.User;
 import com.kodillafinalproject.repository.NoteRepository;
+import com.kodillafinalproject.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,8 @@ class NoteServiceTest {
     private UserService userService;
 
     private User user;
+    @Autowired
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
@@ -94,6 +97,7 @@ class NoteServiceTest {
         Optional<Note> searchedNote = noteRepository.findById(savedNote.getId());
 
         assertFalse(searchedNote.isPresent());
+        assertTrue(userRepository.existsById(user.getId()));
     }
 
     @Test

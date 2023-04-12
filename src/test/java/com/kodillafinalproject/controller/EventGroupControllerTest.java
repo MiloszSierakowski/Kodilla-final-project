@@ -105,7 +105,7 @@ class EventGroupControllerTest {
 
         mockMvc.
                 perform(MockMvcRequestBuilders
-                        .get("/v1/event-group/{groupId}", eventGroupDto.getId())
+                        .put("/v1/event-group/{groupId}", eventGroupDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
@@ -122,10 +122,10 @@ class EventGroupControllerTest {
 
         mockMvc.
                 perform(MockMvcRequestBuilders
-                        .get("/v1/event-group/{groupId}", eventGroupDto.getId())
+                        .put("/v1/event-group/{groupId}", eventGroupDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8"))
-                .andExpect(MockMvcResultMatchers.status().is(404));
+                .andExpect(MockMvcResultMatchers.status().is(400));
     }
 
     @Test

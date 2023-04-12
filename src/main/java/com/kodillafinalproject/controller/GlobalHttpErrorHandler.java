@@ -32,7 +32,13 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NotEmptyEventGroupDeletionException.class)
-    public ResponseEntity<Object> handleEventGroupNotFoundException(NotEmptyEventGroupDeletionException exception) {
+    public ResponseEntity<Object> handleNotEmptyEventGroupDeletionException(NotEmptyEventGroupDeletionException exception) {
         return new ResponseEntity<>("EventGroup is not empty, you cannot delete it.", HttpStatus.CONFLICT);
+    }
+
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<Object> handleEventNotFoundException(EventNotFoundException exception) {
+        return new ResponseEntity<>("Event dont found", HttpStatus.NOT_FOUND);
     }
 }
