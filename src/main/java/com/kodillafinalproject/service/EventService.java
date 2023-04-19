@@ -26,4 +26,5 @@ public class EventService {
     public void deleteEvent(Event event) {
         eventRepository.delete(event);
     }
+
 }

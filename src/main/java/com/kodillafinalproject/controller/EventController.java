@@ -19,6 +19,7 @@ public class EventController {
 
     private final EventMapper eventMapper;
 
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createEvent(@RequestBody EventDto eventDto) {
         Event event = eventMapper.mapToEvent(eventDto);
@@ -35,7 +36,6 @@ public class EventController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EventDto> updateEvent(@RequestBody EventDto eventDto) {
         Event event = eventMapper.mapToEvent(eventDto);
-        System.out.println(event.toString());
         Event updatedEvent = eventService.saveEvent(event);
         return ResponseEntity.ok(eventMapper.mapToEventDto(updatedEvent));
     }
@@ -47,5 +47,4 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
 
-    //todo przerobić pozostałe endpointy jak ten put i delete
 }

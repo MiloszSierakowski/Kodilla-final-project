@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -37,5 +37,5 @@ public class Event {
     private EventGroup eventGroup;
 
     @ManyToMany(mappedBy = "events", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 }

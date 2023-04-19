@@ -50,5 +50,5 @@ public class User {
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "EVENT_ID", referencedColumnName = "EVENT_ID")}
     )
-    private Set<Event> events = new HashSet<>();
+    private List<Event> events = new ArrayList<>();
 }

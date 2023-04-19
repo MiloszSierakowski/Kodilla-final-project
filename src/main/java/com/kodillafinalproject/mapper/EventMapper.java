@@ -6,6 +6,8 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface EventMapper {
 
@@ -21,5 +23,7 @@ public interface EventMapper {
 
     @InheritInverseConfiguration(name = "mapToEvent")
     EventDto mapToEventDto(Event event);
+    List<Event> mapToListsOfEvents(List<EventDto> eventDtos);
+    List<EventDto> mapToListsOfEventsDto(List<Event> events);
 
 }
