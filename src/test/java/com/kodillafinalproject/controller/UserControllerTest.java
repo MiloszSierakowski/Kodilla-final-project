@@ -1,8 +1,11 @@
 package com.kodillafinalproject.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kodillafinalproject.domain.User;
 import com.kodillafinalproject.domain.UserDto;
+import com.kodillafinalproject.mapper.LocalDateAdapter;
+import com.kodillafinalproject.mapper.LocalTimeAdapter;
 import com.kodillafinalproject.mapper.UserMapper;
 import com.kodillafinalproject.service.UserService;
 import org.hamcrest.Matchers;
@@ -16,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,13 +44,15 @@ class UserControllerTest {
     @Test
     void createUser() throws Exception {
         User user = new User(1L, "Milosz", "Sierak", "Grudziadz",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
-        UserDto userDto = new UserDto(1L, "Milosz", "Sierak", "Grudziadz");
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
+        UserDto userDto = new UserDto(1L, "Milosz", "Sierak", "Grudziadz",  new ArrayList<>(), new ArrayList<>());
 
         when(userMapper.mapToUser(userDto)).thenReturn(user);
         when(userService.saveUser(any(User.class))).thenReturn(user);
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
         String jsonContent = gson.toJson(userDto);
 
@@ -61,7 +68,7 @@ class UserControllerTest {
     @Test
     void deleteUser() throws Exception {
         User user = new User(1L, "Test", "Test", "Test",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
         when(userService.findById(user.getId())).thenReturn(user);
 
         mockMvc.
@@ -75,7 +82,7 @@ class UserControllerTest {
     @Test
     void deleteUserWithException() throws Exception {
         User user = new User(-1L, "Test", "Test", "Test",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         when(userService.findById(user.getId())).thenThrow(new UserNotFoundException());
 
@@ -91,14 +98,16 @@ class UserControllerTest {
     void updateUser() throws Exception {
         Long id = 1L;
         User user = new User(1L, "", "", "",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
-        UserDto userDto = new UserDto(1L, "Test", "tests", "In Poland city");
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
+        UserDto userDto = new UserDto(1L, "Test", "tests", "In Poland city", new ArrayList<>(), new ArrayList<>());
 
         when(userService.findById(id)).thenReturn(user);
         when(userService.saveUser(any(User.class))).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
         String jsonContent = gson.toJson(userDto);
 
@@ -119,23 +128,25 @@ class UserControllerTest {
     void findUsersByName() throws Exception {
         List<User> userList = List.of(
                 new User(1L, "Alicja", "NVIDIA", "Olsztyn",
-                        new HashSet<>(), new ArrayList<>(), new HashSet<>()),
+                        new HashSet<>(), new ArrayList<>(), new ArrayList<>()),
                 new User(2L, "Milosz", "NVIDIA", "Olsztyn",
-                        new HashSet<>(), new ArrayList<>(), new HashSet<>())
+                        new HashSet<>(), new ArrayList<>(), new ArrayList<>())
         );
         List<UserDto> userDtoList = List.of(
-                new UserDto(1L, "Alicja", "NVIDIA", "Olsztyn"),
-                new UserDto(2L, "Milosz", "NVIDIA", "Olsztyn")
+                new UserDto(1L, "Alicja", "NVIDIA", "Olsztyn",  new ArrayList<>(), new ArrayList<>()),
+                new UserDto(2L, "Milosz", "NVIDIA", "Olsztyn", new ArrayList<>(), new ArrayList<>())
         );
 
-        UserDto userDto = new UserDto(1L, "", "NVIDIA", "Olsztyn");
+        UserDto userDto = new UserDto(1L, "", "NVIDIA", "Olsztyn",  new ArrayList<>(), new ArrayList<>());
 
 
         when(userService.findByName(userMapper.mapToUser(userDto))).thenReturn(userList);
         when(userMapper.mapToListUserDto(userList)).thenReturn(userDtoList);
 
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
         String jsonContent = gson.toJson(userDto);
 
@@ -158,11 +169,13 @@ class UserControllerTest {
 
     @Test
     void findUsersByNameWithUserNotFoundException() throws Exception {
-        UserDto userDto = new UserDto(1L, "", "", "Olsztyn");
+        UserDto userDto = new UserDto(1L, "", "", "Olsztyn",  new ArrayList<>(), new ArrayList<>());
 
         when(userService.findByName(userMapper.mapToUser(userDto))).thenThrow(new UserNotFoundException());
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
         String jsonContent = gson.toJson(userDto);
 
@@ -177,11 +190,13 @@ class UserControllerTest {
 
     @Test
     void findUsersByNameWithNoRequiredPersonDataException() throws Exception {
-        UserDto userDto = new UserDto(1L, "", "", "Olsztyn");
+        UserDto userDto = new UserDto(1L, "", "", "Olsztyn",  new ArrayList<>(), new ArrayList<>());
 
         when(userService.findByName(userMapper.mapToUser(userDto))).thenThrow(new NoRequiredPersonDataException());
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
         String jsonContent = gson.toJson(userDto);
 
@@ -199,9 +214,9 @@ class UserControllerTest {
         Long userId = 1L;
         Long friendId = 2L;
         User user = new User(1L, "Milosz", "Sierak", "Grudziadz",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
         User friend = new User(2L, "Milosz", "Sierak", "Grudziadz",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         when(userService.findById(userId)).thenReturn(user);
         when(userService.findById(friendId)).thenReturn(friend);
@@ -233,9 +248,9 @@ class UserControllerTest {
         Long userId = 1L;
         Long friendId = 2L;
         User user = new User(1L, "Milosz", "Sierak", "Grudziadz",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
         User friend = new User(2L, "Milosz", "Sierak", "Grudziadz",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         when(userService.findById(userId)).thenReturn(user);
         when(userService.findById(friendId)).thenReturn(friend);

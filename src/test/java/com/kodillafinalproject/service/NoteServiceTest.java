@@ -37,7 +37,7 @@ class NoteServiceTest {
     @BeforeEach
     void setUp() {
         user = userService.saveUser(new User(0L, "Janusz", "Kowalski", "Szczecin"
-                , new HashSet<>(), new ArrayList<>(), new HashSet<>())
+                , new HashSet<>(), new ArrayList<>(), new ArrayList<>())
         );
     }
 

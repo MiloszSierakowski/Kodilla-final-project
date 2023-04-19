@@ -27,10 +27,10 @@ class UserServiceTest {
     @Test
     void testFindByNameUsingOnlyFirstName() {
         User user = new User(0L, "Darek", "", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User user1 = new User(0L, "Darek", "Sierakowski", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         User savedUser2 = userRepository.save(user1);
@@ -54,10 +54,10 @@ class UserServiceTest {
     @Test
     void testFindByNameUsingOnlyLastName() {
         User user = new User(0L, "", "NVIDIA", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User user1 = new User(0L, "Milosz", "NVIDIA", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         User savedUser2 = userRepository.save(user1);
@@ -82,10 +82,10 @@ class UserServiceTest {
     @Test
     void testFindByNameByFirstNameAndLaseName() {
         User user = new User(0L, "Alicja", "NVIDIA", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User user1 = new User(0L, "Milosz", "NVIDIA", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         User savedUser2 = userRepository.save(user1);
@@ -110,10 +110,10 @@ class UserServiceTest {
     @Test
     void testFindByNameTestedByNull() {
         User user = new User(0L, "Alicja", "NVIDIA", "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User user1 = new User(0L, null, null, "Olsztyn",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         User savedUser2 = userRepository.save(user1);
@@ -135,7 +135,7 @@ class UserServiceTest {
     @Test
     void findById() throws UserNotFoundException {
         User user = new User(0L, "Darek", "Gabrowski", "Płock",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
 
@@ -156,7 +156,7 @@ class UserServiceTest {
     @Test
     void findByIdThrowUserNotFoundException() {
         User user = new User(0L, "Darek", "Gabrowski", "Płock",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         userRepository.deleteById(savedUser1.getId());
@@ -165,15 +165,13 @@ class UserServiceTest {
             assertThrows(UserNotFoundException.class, () -> userService.findById(savedUser1.getId()));
         } catch (Exception e) {
             System.out.println("wyskoczyl exception");//todo poprawić to tutaj
-        } finally {
-            userRepository.deleteById(savedUser1.getId());
         }
     }
 
     @Test
     void saveUser() {
         User user = new User(0L, "Darek", "Gabrowski", "Płock",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userService.saveUser(user);
         Optional<User> searchedUser = userRepository.findById(savedUser1.getId());
@@ -194,7 +192,7 @@ class UserServiceTest {
     @Test
     void deleteUserById() {
         User user = new User(0L, "Darek", "Gabrowski", "Płock",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
 
         User savedUser1 = userRepository.save(user);
         userService.deleteUserById(savedUser1.getId());
@@ -204,8 +202,6 @@ class UserServiceTest {
             assertFalse(searchedUser.isPresent());
         } catch (Exception e) {
             System.out.println("wyskoczyl exception");//todo poprawić to tutaj
-        } finally {
-            userRepository.deleteById(savedUser1.getId());
         }
     }
 }

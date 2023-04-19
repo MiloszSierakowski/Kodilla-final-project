@@ -10,9 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class EventMapperTest {
@@ -25,7 +26,7 @@ class EventMapperTest {
     static void setUp() {
         event = new Event(1L, "Test", "Intellij",
                 "Testowanie mappera", LocalTime.now(), LocalDate.now(),
-                new EventGroup(), new HashSet<>());
+                new EventGroup(), new ArrayList<>());
         eventDto = new EventDto(1L, "Test", "Intellij",
                 "Testowanie mappera", LocalTime.now(), LocalDate.now(),
                 2L);

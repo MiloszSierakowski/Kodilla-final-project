@@ -3,7 +3,6 @@ package com.kodillafinalproject.service;
 import com.kodillafinalproject.controller.EventGroupNotFoundException;
 import com.kodillafinalproject.domain.EventGroup;
 import com.kodillafinalproject.repository.EventGroupRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,6 @@ class EventGroupServiceTest {
     @BeforeEach
     void setUp() {
         eventGroup = new EventGroup(-1L, "Testowy", new ArrayList<>());
-    }
-
-    @AfterEach
-    void cleanUp() {
-        eventGroupRepository.deleteById(eventGroup.getId());
     }
 
     @Test
@@ -62,7 +56,7 @@ class EventGroupServiceTest {
 
     @Test
     void findByIdThrowEventGroupNotFoundException() {
-        assertThrows(EventGroupNotFoundException.class, ()-> eventGroupService.findById(-1L));
+        assertThrows(EventGroupNotFoundException.class, () -> eventGroupService.findById(-1L));
     }
 
     @Test
@@ -82,5 +76,6 @@ class EventGroupServiceTest {
         Optional<EventGroup> searchedNote = eventGroupRepository.findById(savedEventGroup.getId());
 
         assertFalse(searchedNote.isPresent());
+
     }
 }

@@ -1,5 +1,6 @@
 package com.kodillafinalproject.mapper;
 
+import com.kodillafinalproject.domain.EventDto;
 import com.kodillafinalproject.domain.User;
 import com.kodillafinalproject.domain.UserDto;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,8 +25,8 @@ class UserMapperTest {
     @BeforeAll
     static void setUp() {
         user = new User(1L, "Milosz", "Sier", "Gdansk",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>());
-        userDto = new UserDto(1L, "Milosz", "Sier", "Gdans");
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>());
+        userDto = new UserDto(1L, "Milosz", "Sier", "Gdans", List.of(new UserDto()), List.of(new EventDto()));
     }
 
     @Test
@@ -42,7 +43,7 @@ class UserMapperTest {
 
     @Test
     void mapToUserWithNullField() {
-        UserDto userDto1 = new UserDto(1L,"","Sierak","Olsztyn");
+        UserDto userDto1 = new UserDto(1L,"","Sierak","Olsztyn", List.of(new UserDto()), List.of(new EventDto()));
         User mappedUser = userMapper.mapToUser(userDto1);
 
         assertAll(
@@ -70,9 +71,9 @@ class UserMapperTest {
         List<User> userList = new ArrayList<>();
         userList.add(user);
         userList.add(new User(2L, "Ala", "Ma kota", "Warszawa",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>()));
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>()));
         userList.add(new User(3L, "Bartosz", "Ma problem", "Krakow",
-                new HashSet<>(), new ArrayList<>(), new HashSet<>()));
+                new HashSet<>(), new ArrayList<>(), new ArrayList<>()));
 
         List<UserDto> mappedUserDtoList = userMapper.mapToListUserDto(userList);
 
@@ -87,8 +88,8 @@ class UserMapperTest {
     void mapToListUserDto() {
         List<UserDto> userDtoList = new ArrayList<>();
         userDtoList.add(userDto);
-        userDtoList.add(new UserDto(2L, "Ala", "Ma kota", "Warszawa"));
-        userDtoList.add(new UserDto(3L, "Bartosz", "Ma problem", "Krakow"));
+        userDtoList.add(new UserDto(2L, "Ala", "Ma kota", "Warszawa", List.of(new UserDto()), List.of(new EventDto())));
+        userDtoList.add(new UserDto(3L, "Bartosz", "Ma problem", "Krakow", List.of(new UserDto()), List.of(new EventDto())));
 
         List<User> mappedUserList = userMapper.mapToListUser(userDtoList);
 
